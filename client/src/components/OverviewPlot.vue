@@ -15,6 +15,7 @@
     </div>
     <div v-bind:style="chartSize" id="overview-chart">
       <div v-for="(game, id) in current.games" :key="id" class="game" :style="getPosition(id)" @click="goToId(id)" @mouseenter="(event) => { mouseOver(event, id) }" @mouseleave="mouseLeave" >
+        <div class="crossX"></div><div class="crossY"></div>
         <Thumbnailplot :streams="current.games[id].streams" :width="tmbWidth"/>
       </div>
     <Slider/>
@@ -162,12 +163,38 @@ export default {
   width: 100%;
   margin: 2% auto;
 }
+.crossX{
+  visibility: hidden;
+}
+.crossY{
+  visibility: hidden;
+}
 .game:hover {
   border: 1px solid #9fff70;
-  border-radius: 7px;
+  border-radius: 21px;
   cursor: pointer;
 }
+.game:hover .crossX {
+  z-index: 100;
+  top: 20.5px;
+  position: absolute;
+  visibility: visible;
+  width: 42px;
+  height: 1px;
+  background-color: #9fff70;
+}
+.game:hover .crossY {
+  z-index: 100;
+  left: 20.5px;
+  position: absolute;
+  visibility: visible;
+  height: 42px;
+  width: 1px;
+  background-color: #9fff70;
+}
+
 .game {
+  position: relative;
   box-sizing: border-box;
   position: absolute;
   display: inline-block;
